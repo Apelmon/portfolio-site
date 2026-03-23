@@ -3,10 +3,11 @@ export const SECTION_IDS = {
     about: "about",
     skills: "skills",
     projects: "projects",
-    testimonails: "testimonials",
+    testimonials: "testimonials",
     contact: "contact",
 } as const;
 
+export const HEADER_TITLE = "Portfolio" as const;
 export const FORMSPREE = "FORMSPREE" as const;
 export const EMAIL = "EMAIL" as const;
 export const SOCIAL_LINKS = {

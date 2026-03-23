@@ -1,5 +1,6 @@
 "use client"
 
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SECTION_IDS } from "@/lib/constants";
@@ -21,7 +22,7 @@ export default function Home() {
 
   return (
     <div className="mx-5 my-5">
-      <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl py-16 items-center justify-center">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl py-nav items-center justify-center">
         <Button
             className="flex h-12 w-full 
             items-center justify-center rounded-full border 
@@ -34,9 +35,9 @@ export default function Home() {
             Switch theme
           </Button>
           {Object.entries(SECTION_IDS).map(([key, id]) => (
-            <div>
+            <div key={key}>
               <Separator className="my-4"/>
-              <section key={key} id={`${key}`} className="mx-4 capitalize text-gray-500">
+              <section id={`${id}`} className={cn("mx-4 capitalize min-h-screen text-gray-500", "scroll-mt-nav")}>
                 {id}
               </section>  
             </div>
