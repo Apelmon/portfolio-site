@@ -14,20 +14,19 @@ describe('NavBar', () => {
     render(<NavBar />)
     // Simulate "skills" section entering viewport                                                     
     act(() => {
-      observerCallback([{ isIntersecting: true, target: { id: SECTION_IDS.skills } }] as any, {} as
-        any)
+      observerCallback([{ isIntersecting: true, target: { id: SECTION_IDS.skills } }] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver)
     })
-    const activeLink = screen.getByRole('link', { name: /skills/i, hidden: false })
-    // only the first match (desktop or mobile) — both should reflect state                            
+    // only the first match (desktop or mobile) — both should reflect state
     expect(screen.getAllByRole('link', { name: /skills/i })[0]).toHaveAttribute('aria-current', 'page')
   })
 
   it('only one link is aria-current at a time', () => {
     render(<NavBar />)
     act(() => {
-      observerCallback([{ isIntersecting: true, target: { id: SECTION_IDS.about } }] as any, {} as any)
+      observerCallback([{ isIntersecting: true, target: { id: SECTION_IDS.about } }] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver)
     })
-    const currentLinks = document.querySelectorAll('[aria-current="page"]')
+    // aria-hidden drawer keeps mobile links out of the accessibility tree
+    const currentLinks = screen.queryAllByRole('link', { current: 'page' })
     expect(currentLinks.length).toBe(1)
   })
 
@@ -58,7 +57,8 @@ describe('NavBar', () => {
 
   it('renders CV download link with download attribute', () => {
     render(<NavBar />)
-    const cvLinks = screen.getAllByRole('link', { name: /^cv$|download cv/i })
+    // hidden: true to include the mobile drawer CV link (aria-hidden when closed)
+    const cvLinks = screen.getAllByRole('link', { name: /^cv$|download cv/i, hidden: true })
     expect(cvLinks.length).toBe(2)
     cvLinks.forEach((link) => {
       expect(link).toHaveAttribute('download')

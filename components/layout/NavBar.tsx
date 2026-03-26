@@ -18,10 +18,7 @@ export function NavBar() {
 
     const closeDrawer = useCallback(() => {
         setDrawerOpen(false);
-        // return focus on hamburger on close
-        if (window.innerWidth < 768) {
-            hamburgerRef.current?.focus();
-        }
+        hamburgerRef.current?.focus();
     }, []) // stable - setDrawerOpen and refs dont change
 
     // active secrtion
