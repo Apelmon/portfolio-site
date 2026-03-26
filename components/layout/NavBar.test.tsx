@@ -1,15 +1,36 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act, within } from '@testing-library/react'
 import { NavBar } from './NavBar'
 import { NAV_LINKS, SECTION_IDS } from '@/lib/constants'
 
 // Mock IntersectionObserver — not available in jsdom
-global.IntersectionObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
-}))
+let observerCallback: IntersectionObserverCallback
+global.IntersectionObserver = jest.fn().mockImplementation((cb) => {
+  observerCallback = cb
+  return { observe: jest.fn(), unobserve: jest.fn(), disconnect: jest.fn() }
+})
 
 describe('NavBar', () => {
+  it('marks the intersecting section link as aria-current', () => {
+    render(<NavBar />)
+    // Simulate "skills" section entering viewport                                                     
+    act(() => {
+      observerCallback([{ isIntersecting: true, target: { id: SECTION_IDS.skills } }] as any, {} as
+        any)
+    })
+    const activeLink = screen.getByRole('link', { name: /skills/i, hidden: false })
+    // only the first match (desktop or mobile) — both should reflect state                            
+    expect(screen.getAllByRole('link', { name: /skills/i })[0]).toHaveAttribute('aria-current', 'page')
+  })
+
+  it('only one link is aria-current at a time', () => {
+    render(<NavBar />)
+    act(() => {
+      observerCallback([{ isIntersecting: true, target: { id: SECTION_IDS.about } }] as any, {} as any)
+    })
+    const currentLinks = document.querySelectorAll('[aria-current="page"]')
+    expect(currentLinks.length).toBe(1)
+  })
+
   it('renders a nav landmark', () => {
     render(<NavBar />)
     expect(screen.getByRole('navigation', { name: /primary navigation/i })).toBeInTheDocument()
@@ -38,9 +59,10 @@ describe('NavBar', () => {
   it('renders CV download link with download attribute', () => {
     render(<NavBar />)
     const cvLinks = screen.getAllByRole('link', { name: /^cv$|download cv/i })
-    expect(cvLinks.length).toBeGreaterThan(0)
+    expect(cvLinks.length).toBe(2)
     cvLinks.forEach((link) => {
       expect(link).toHaveAttribute('download')
+      expect(link).toHaveAttribute('href', '/files/CV-Pavlo-Khilmon-en.pdf')
     })
   })
 
@@ -50,5 +72,35 @@ describe('NavBar', () => {
     expect(hamburger).toBeInTheDocument()
     fireEvent.click(hamburger)
     expect(screen.getByRole('dialog', { name: /navigation menu/i })).toBeInTheDocument()
+  })
+
+  it('closes drawer on Escape and returns focus to hamburger', () => {
+    render(<NavBar />)
+    const hamburger = screen.getByRole('button', { name: /open navigation menu/i })
+    fireEvent.click(hamburger)
+    expect(screen.getByRole('dialog', { name: /navigation menu/i })).toBeInTheDocument()
+
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(screen.queryByRole('dialog', { name: /navigation menu/i })).not.toBeInTheDocument()
+    expect(document.activeElement).toBe(hamburger)
+  })
+
+  it('closes drawer when clicking outside (backdrop)', () => {
+    render(<NavBar />)
+    fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
+    const backdrop = document.querySelector('[aria-hidden="true"]') as Element
+    fireEvent.click(backdrop)
+    expect(screen.queryByRole('dialog', { name: /navigation menu/i })).not.toBeInTheDocument()
+  })
+
+  it('closes drawer and returns focus when a nav link is tapped', () => {
+    render(<NavBar />)
+    const hamburger = screen.getByRole('button', { name: /open navigation menu/i })
+    fireEvent.click(hamburger)
+    const drawer = screen.getByRole('dialog', { name: /navigation menu/i })
+    const firstLink = within(drawer).getAllByRole('link')[0]
+    fireEvent.click(firstLink)
+    expect(screen.queryByRole('dialog', { name: /navigation menu/i })).not.toBeInTheDocument()
+    expect(document.activeElement).toBe(hamburger)
   })
 })

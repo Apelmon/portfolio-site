@@ -171,6 +171,7 @@ export function NavBar() {
                     <a
                         href="/files/CV-Pavlo-Khilmon-en.pdf"
                         download
+                        aria-label="Download CV (PDF)"
                         className={cn(buttonVariants({ variant: "ghost", size: "sm" }),
                             "hidden md:flex rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                         )}
@@ -178,7 +179,7 @@ export function NavBar() {
                         CV
                     </a>
 
-                    {/* Hamburger modile only */}
+                    {/* Hamburger mobile only */}
                     <button
                         ref={hamburgerRef}
                         onClick={() => setDrawerOpen(true)}
@@ -194,7 +195,7 @@ export function NavBar() {
                 </nav>
             </header>
 
-            {/* Backgrop */}
+            {/* Backdrop */}
             {drawerOpen && (
                 <div
                     className={cn("fixed inset-0 z-40 bg-background/60 backdrop-blur-sm md:hidden")}
@@ -223,7 +224,7 @@ export function NavBar() {
                 <button
                     onClick={closeDrawer}
                     aria-label="Close navigation menu"
-                    className={cn("absolute top-4 right-4 flex items-center justify-center w-11 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-text-muted hover:text-foreground transition-colors")}
+                    className={cn("absolute top-4 right-4 flex items-center justify-center w-11 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-muted-foreground hover:text-foreground transition-colors")}
                 >x</button>
 
                 {/* Section links - min 44x44px tap targets */}
@@ -268,7 +269,7 @@ export function NavBar() {
                 </a>
 
                 {/* Social links at the bottom */}
-                <div className={cn("mt-auto flex gap-4 text-sm text-text-muted")}>
+                <div className={cn("mt-auto flex gap-4 text-sm text-muted-foreground")}>
                     {SOCIAL_LINKS.map(({ href, label }) => (
                         <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={cn("min-h-11 flex items-center hover:text-accent transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent")}>{label} ↗</a>
                     ))}
