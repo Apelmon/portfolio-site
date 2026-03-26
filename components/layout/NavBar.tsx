@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button"
 import { useEffect, useState, useRef, useCallback } from "react"
 import { SECTION_IDS, NAV_LINKS, SOCIAL_LINKS, HEADER_TITLE } from "@/lib/constants"
 
@@ -130,7 +131,7 @@ export function NavBar() {
         <div>
             <header className={cn("fixed top-0 inset-x-0 z-50 h-nav transition-all duration-300",
                 scrolled
-                    ? "border-b border-border bg-bg/80 backdrop-blur-sm"
+                    ? "border-b border-border bg-background/80 backdrop-blur-sm"
                     : "border-b border-transparent bg-transparent"
             )}>
                 <nav
@@ -166,6 +167,17 @@ export function NavBar() {
                         )}
                     </ul>
 
+                    {/* Desktop CV download link */}
+                    <a
+                        href="/files/CV-Pavlo-Khilmon-en.pdf"
+                        download
+                        className={cn(buttonVariants({ variant: "ghost", size: "sm" }),
+                            "hidden md:flex rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                        )}
+                    >
+                        CV
+                    </a>
+
                     {/* Hamburger modile only */}
                     <button
                         ref={hamburgerRef}
@@ -185,7 +197,7 @@ export function NavBar() {
             {/* Backgrop */}
             {drawerOpen && (
                 <div
-                    className={cn("fixed inset-0 z-40 bg-bg/60 backdrop-blur-sm md:hidden")}
+                    className={cn("fixed inset-0 z-40 bg-background/60 backdrop-blur-sm md:hidden")}
                     aria-hidden="true"
                     onClick={closeDrawer}
                 />
@@ -240,6 +252,20 @@ export function NavBar() {
                         })}
                     </ul>
                 </nav>
+
+                {/* CV download link */}
+                <a
+                    href="/files/CV-Pavlo-Khilmon-en.pdf"
+                    download
+                    onClick={closeDrawer}
+                    className={cn(
+                        "flex items-center min-h-11 px-3 rounded text-sm text-muted-foreground",
+                        "hover:text-foreground transition-colors",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    )}
+                >
+                    Download CV
+                </a>
 
                 {/* Social links at the bottom */}
                 <div className={cn("mt-auto flex gap-4 text-sm text-text-muted")}>
