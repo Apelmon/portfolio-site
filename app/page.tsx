@@ -10,7 +10,7 @@ export default function Home() {
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-4xl py-nav px-4 sm:px-6 lg:px-8">
       <HeroSection />
       <AboutSection />
-      {Object.entries(SECTION_IDS).filter(([key, id]) => key !== SECTION_IDS.hero && key !== SECTION_IDS.about)
+      {Object.entries(SECTION_IDS).filter(([key]) => key !== SECTION_IDS.hero && key !== SECTION_IDS.about)
       .map(([key, id]) => (
         <div key={key} className={cn("")}>
           <Separator className="my-4" />
