@@ -10,9 +10,9 @@ describe('AboutSection', () => {
     })
 
     it('renders multiple paragraphs', () => {
-        render(<AboutSection />)
+        const { container } = render(<AboutSection />)
         // each paragraph maps to a <p> element
-        expect(document.querySelectorAll('p').length).toBeGreaterThanOrEqual(3)
+        expect(container.querySelectorAll('p').length).toBeGreaterThanOrEqual(3)
     })
 
     it('renders first paragraph from aboutContent', () => {
@@ -21,8 +21,8 @@ describe('AboutSection', () => {
     })
 
     it('section has the correct id for scroll-spy', () => {
-        render(<AboutSection />)
-        const section = document.getElementById(SECTION_IDS.about)
+        const { container } = render(<AboutSection />)
+        const section = container.querySelector('#' + SECTION_IDS.about)
         expect(section).toBeInTheDocument()
     })
 })
