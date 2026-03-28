@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { SECTION_IDS } from "@/lib/constants";
+import { SkillsSection } from "@/components/sections/SkillsSection";
 
 export default function Home() {
 
@@ -10,15 +11,20 @@ export default function Home() {
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-4xl py-nav px-4 sm:px-6 lg:px-8">
       <HeroSection />
       <AboutSection />
-      {Object.entries(SECTION_IDS).filter(([key]) => key !== SECTION_IDS.hero && key !== SECTION_IDS.about)
-      .map(([key, id]) => (
-        <div key={key} className={cn("")}>
-          <Separator className="my-4" />
-          <section id={`${id}`} className={cn("capitalize min-h-screen scroll-mt-nav")}>
-            {id}
-          </section>
-        </div>
-      ))}
+      <Separator />
+      <SkillsSection />
+      {Object.entries(SECTION_IDS)
+        .filter(([, id]) => id !== SECTION_IDS.hero &&
+          id !== SECTION_IDS.about &&
+          id !== SECTION_IDS.skills)
+        .map(([key, id]) => (
+          <div key={key} >
+            <Separator />
+            <section id={`${id}`} className={cn("capitalize min-h-screen scroll-mt-nav")}>
+              {id}
+            </section>
+          </div>
+        ))}
     </main>
   );
 }

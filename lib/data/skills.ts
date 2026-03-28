@@ -4,6 +4,8 @@ export interface SkillGroup {
   variant?: 'accent' | 'neutral'
 }
 
+export const skillsHeading = "Skills" as const;
+
 export const skills: SkillGroup[] = [
   {
     label: 'Frontend',
@@ -12,12 +14,12 @@ export const skills: SkillGroup[] = [
   },
   {
     label: 'Backend & Infrastructure',
-    skills: ['Node.js', 'Java', 'Spring Boot', 'PostgreSQL'],
+    skills: ['Java', 'Quarkus', 'PostgreSQL'],
     variant: 'neutral',
   },
   {
     label: 'Other Technical Background',
-    skills: ['C++', 'Python', 'Unity', 'Embedded Systems'],
+    skills: ['Python', 'Unity', 'C++', 'Embedded Systems'],
     variant: 'neutral',
   },
 ]
