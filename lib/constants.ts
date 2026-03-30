@@ -12,6 +12,7 @@ export const NAV_LINKS = ["about", "skills", "projects", "testimonials", "contac
 export const HEADER_TITLE = "Portfolio" as const;
 export const FORMSPREE_URL = process.env.NEXT_PUBLIC_FORMSPREE_URL ?? "";
 export const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? "";
+export const LANDING_PAGE_REPO = 'https://github.com/pkhilmon/portfolio-site' as const;
 
 type SocialLink = {
     href: string;
@@ -20,6 +21,6 @@ type SocialLink = {
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
     { href: "https://www.linkedin.com/in/pavlo-khilmon-260335131", label: "LinkedIn" },
-    { href: "https://github.com/Apelmon", label: "GitHub" },
+    { href: "https://github.com/pkhilmon", label: "GitHub" },
     { href: "https://www.upwork.com/freelancers/~01fda2e07bc1fa016b", label: "Upwork" },
 ];
