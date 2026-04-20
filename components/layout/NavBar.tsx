@@ -11,6 +11,7 @@ export function NavBar() {
     const [activeId, setActiveId] = useState<string>("")
     const [scrolled, setScrolled] = useState<boolean>(false)
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+    const [heroInView, setHeroInView] = useState<boolean>(true)
 
     const drawerRef = useRef<HTMLDivElement>(null)
     const hamburgerRef = useRef<HTMLButtonElement>(null)
@@ -44,7 +45,19 @@ export function NavBar() {
         return () => observer.disconnect()
     }, [])
 
-    // scroll threshold for frosted glass 
+    // hide/show nav name based on hero section visibility
+    useEffect(() => {
+        const hero = document.getElementById("hero")
+        if (!hero) return
+        const observer = new IntersectionObserver(
+            ([entry]) => setHeroInView(entry.isIntersecting),
+            { rootMargin: "-250px 0px 0px 0px", threshold: 0 }
+        )
+        observer.observe(hero)
+        return () => observer.disconnect()
+    }, [])
+
+    // scroll threshold for frosted glass
     useEffect(() => {
         const threshold = 10
         const handleScroll = () => { setScrolled(window.scrollY > threshold); }
@@ -135,7 +148,11 @@ export function NavBar() {
                     className="mx-auto flex max-w-5xl items-center justify-between px-6 h-full"
                     aria-label="Primary navigation"
                 >
-                    <Link href="/" className={cn("uppercase text-sm font-semibold text-gray-700 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent")}>
+                    <Link href="/" className={cn(
+                        "uppercase text-sm font-semibold text-gray-700 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                        "transition-all duration-300",
+                        heroInView ? "opacity-0 pointer-events-none" : "opacity-100"
+                    )}>
                         {HEADER_TITLE}
                     </Link>
                     {/* <a href="/" className="text-sm font-semibold tracking-tight text-text-primary text-gray-500">
