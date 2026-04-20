@@ -135,7 +135,7 @@ export function NavBar() {
                     className="mx-auto flex max-w-5xl items-center justify-between px-6 h-full"
                     aria-label="Primary navigation"
                 >
-                    <Link href="/" className={cn("text-sm font-semibold text-gray-700 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent")}>
+                    <Link href="/" className={cn("uppercase text-sm font-semibold text-gray-700 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent")}>
                         {HEADER_TITLE}
                     </Link>
                     {/* <a href="/" className="text-sm font-semibold tracking-tight text-text-primary text-gray-500">
@@ -143,7 +143,7 @@ export function NavBar() {
                     </a> */}
 
                     {/* Desktop links */}
-                    <ul className="hidden md:flex items-center gap-6 text-sm">
+                    {/* <ul className="hidden md:flex items-center gap-6 text-sm">
                         {NAV_LINKS.map((key) => {
                             const id = SECTION_IDS[key];
                             const isActive = activeId === id;
@@ -162,7 +162,7 @@ export function NavBar() {
                             )
                         }
                         )}
-                    </ul>
+                    </ul> */}
 
                     {/* Desktop CV download link */}
                     <a
@@ -225,7 +225,7 @@ export function NavBar() {
                 >x</button>
 
                 {/* Section links - min 44x44px tap targets */}
-                <nav aria-label="Mobile navigation">
+                {/* <nav aria-label="Mobile navigation">
                     <ul className={cn("flex flex-col gap-1")}>
                         {NAV_LINKS.map((id) => {
                             const key = SECTION_IDS[id];
@@ -249,7 +249,7 @@ export function NavBar() {
                             )
                         })}
                     </ul>
-                </nav>
+                </nav> */}
 
                 {/* CV download link */}
                 <a

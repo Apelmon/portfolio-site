@@ -5,26 +5,25 @@ import { heroContent } from "@/lib/data/hero";
 
 export function HeroSection() {
     return (
-        <section id={SECTION_IDS.hero} className={cn("scroll-mt-nav px-6 py-12 md:py-20")}>
-            <h1 className={cn("mb-4 text-5xl font-bold leading-tight tracking-tight")}>
-                    {heroContent.firstName} {heroContent.lastName}
-                {/* <span className={cn("underline underline-offset-6 decoration-6 decoration-accent")}>
-                </span> <mark className={cn("px-3 pb-0.5 text-white bg-accent rounded-2xl")}>
-                </mark> */}
-            </h1>
-            <p className={cn("mb-4 text-sm font-medium text-accent uppercase tracking-wide")}>
-                {heroContent.eyebrow}
-            </p>
-            <p className={cn("mb-8 max-w-xl text-base text-muted-foreground leading-relaxed")}>
+        <section id={SECTION_IDS.hero} className={cn("scroll-mt-nav px-6 py-20 md:py-32 text-center")}>
+            <hgroup>
+                <p className={cn("mb-3 text-xs sm:text-sm font-medium text-accent uppercase tracking-widest")}>
+                    {heroContent.eyebrow}
+                </p>
+                <h1 className={cn("mb-5 text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight")}>
+                    {heroContent.headline}
+                </h1>
+            </hgroup>
+            <p className={cn("mb-10 max-w-xl mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed")}>
                 {heroContent.tagline}
             </p>
-            <div className={cn("flex flex-col sm:flex-row gap-3")}>
+            <div className={cn("flex flex-col sm:flex-row justify-center gap-3")}>
                 <a href={`#${SECTION_IDS.contact}`} className={cn(buttonVariants({ variant: "default" }))}>
                     {heroContent.primaryCtaLabel}
                 </a>
-                <a href={`#${SECTION_IDS.projects}`} className={cn(buttonVariants({ variant: "outline" }))}>
+                {/* <a href={`#${SECTION_IDS.projects}`} className={cn(buttonVariants({ variant: "outline" }))}>
                     {heroContent.secondaryCtaLabel}
-                </a>
+                </a> */}
             </div>
         </section>
     )

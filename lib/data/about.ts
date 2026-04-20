@@ -6,8 +6,8 @@ export interface AboutContent {
 export const aboutContent: AboutContent = {
     heading: "About",
     paragraphs: [
-        "I started my engineering career building games — writing C# in Unity, designing real-time game loops, and debugging performance problems that couldn't hide behind abstractions. From there, I worked in Java enterprise systems and embedded Python, always chasing constraints that forced clear thinking. Each domain had its own rules, its own failure modes.",
-        "The move to frontend web wasn't a detour — it was the convergence point. Web development puts every layer on the table at once: UI polish, state management, API contracts, database design, deployment pipelines, and performance optimisation. After working across the stack in other domains, web felt like the place where everything I'd learned mattered in the same afternoon.",
-        "What that background buys you: when I build a React component, I'm not guessing why it re-renders or where the bottleneck lives. When I talk to a backend engineer, I'm not translating — I've been on that side. Breadth isn't a liability when the person who has it can articulate exactly how it applies.",
+        "I started with Flash — animations first, then games. When Flash died, I moved to HTML5 games for mobile and desktop, then Unity and C#, then Java enterprise systems. Each step forced me to think differently about performance, structure, and the user on the other end.",
+        "Frontend web is where it all came together. In one afternoon you're touching UI, state, APIs, databases, and deployment. After working across the stack, web felt like the place where everything I'd learned actually mattered at the same time.",
+        "That background means I don't guess why a component re-renders or where the bottleneck is. When I talk to a backend engineer, I'm not translating — I've been there. Ten years of context, applied where it counts.",
     ]
 }

@@ -13,12 +13,12 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <Separator />
-      <SkillsSection />
+      {/* <SkillsSection />
       <Separator />
       <ProjectsSection />
       <Separator />
       <TestimonialsSection />
-      <Separator/>
+      <Separator/> */}
       <ContactSection />
     </main>
   );

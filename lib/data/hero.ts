@@ -1,17 +1,15 @@
 export interface HeroContent {
     eyebrow: string;
-    firstName: string;
-    lastName: string;
+    headline: string;
     tagline: string;
     primaryCtaLabel: string;
     secondaryCtaLabel: string;
 }
 
 export const heroContent: HeroContent = {
-    eyebrow: "Frontend Developer · Open to new projects",
-    firstName: "Pavlo",
-    lastName: "Khilmon",
-    tagline: "I build fast, accessible web interfaces backed by 10 years of full-stack depth.",
+    eyebrow: "Available for projects",
+    headline: "Pavlo Khilmon",
+    tagline: "Fast, high-quality web interfaces — from landing pages to full-stack products.",
     primaryCtaLabel: "Get in touch",
     secondaryCtaLabel: "View my work",
 };

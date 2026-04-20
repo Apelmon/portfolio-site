@@ -4,9 +4,9 @@ import { heroContent } from "@/lib/data/hero"
 import { SECTION_IDS } from "@/lib/constants"
 
 describe('HeroSection', () => {
-    it ('renders an h1 with the name', () => {
+    it ('renders an h1 with the headline', () => {
         render(<HeroSection />)
-        expect(screen.getByRole('heading', { level: 1, name: heroContent.name })).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 1, name: heroContent.headline })).toBeInTheDocument()
     })
 
     it ('renders the eyebrow label', () => {
@@ -14,7 +14,7 @@ describe('HeroSection', () => {
         expect(screen.getByText(heroContent.eyebrow)).toBeInTheDocument()
     })
 
-    it ('render the tagline', () => {
+    it ('renders the tagline', () => {
         render(<HeroSection />)
         expect(screen.getByText(heroContent.tagline)).toBeInTheDocument()
     })
