@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FORMSPREE_URL } from "@/lib/constants";
 
 type SubmitStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -20,19 +19,12 @@ export function ContactForm({ className }: ContactFormProps) {
         e.preventDefault()
         setStatus('loading')
 
-        if (!FORMSPREE_URL) {
-            if (process.env.NODE_ENV === 'development') {
-                console.log('[ContactForm] NEXT_PUBLIC_FORMSPREE_URL is not set')
-            }
-            setStatus('error')
-            return
-        }
-
         try {
             const form = e.currentTarget
             const nameEl = form.elements.namedItem('name') as HTMLInputElement | null
             const emailEl = form.elements.namedItem('email') as HTMLInputElement | null
             const messageEl = form.elements.namedItem('message') as HTMLTextAreaElement | null
+            const gotchaEl = form.elements.namedItem('_gotcha') as HTMLInputElement | null
 
             if (!nameEl || !emailEl || !messageEl) throw new Error('Form fields missing')
 
@@ -40,8 +32,9 @@ export function ContactForm({ className }: ContactFormProps) {
                 name: nameEl.value,
                 email: emailEl.value,
                 message: messageEl.value,
+                _gotcha: gotchaEl?.value ?? '',
             }
-            const res = await fetch(FORMSPREE_URL, {
+            const res = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify(data),
@@ -70,20 +63,20 @@ export function ContactForm({ className }: ContactFormProps) {
 
             <div className={cn("flex flex-col gap-1")}>
                 <label htmlFor="name" className={cn("text-sm font-medium")}>Name</label>
-                <Input id="name" name="name" type="text" required autoComplete="name" />
+                <Input id="name" name="name" type="text" required autoComplete="name" maxLength={200}/>
             </div>
 
             <div className={cn("flex flex-col gap-1")}>
                 <label htmlFor="email" className={cn("text-sm font-medium")}>Email</label>
-                <Input id="email" name="email" type="email" required autoComplete="email" />
+                <Input id="email" name="email" type="email" required autoComplete="email" maxLength={200}/>
             </div>
 
             <div className={cn("flex flex-col gap-1")}>
                 <label htmlFor="message" className={cn("text-sm font-medium")}>Message</label>
-                <Textarea id="message" name="message" required rows={5} />
+                <Textarea id="message" name="message" required rows={5} maxLength={3000}/>
             </div>
 
-            {/* Honeypot - hidden from visitors, check by Formspree for spam */}
+            {/* Honeypot - hidden from visitors, checked by /api/contact for spam */}
             <input type="text" name="_gotcha" tabIndex={-1} aria-hidden="true" className={cn('hidden')} />
 
             <Button type="submit" disabled={status === 'loading'} className={cn("w-full")}>
