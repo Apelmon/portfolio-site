@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 import { SOCIAL_LINKS } from "@/lib/constants";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { LinkSquare01Icon } from "@hugeicons/core-free-icons";
 
 export function Footer() {
     return (
@@ -17,7 +19,8 @@ export function Footer() {
                             "hover:bg-accent/10 hover:text-accent",
                             "focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
                         )}>
-                            {label} <span className={cn("text-accent")}>↗</span>
+                            {label} 
+                            <HugeiconsIcon icon={LinkSquare01Icon} size={14} />
                         </a>
                     ))}
                 </div>

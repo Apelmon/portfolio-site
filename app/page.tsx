@@ -14,10 +14,10 @@ export default function Home() {
       <AboutSection />
       <Separator />
       {/* <SkillsSection />
-      <Separator />
+      <Separator /> */}
       <ProjectsSection />
       <Separator />
-      <TestimonialsSection />
+      {/*<TestimonialsSection />
       <Separator/> */}
       <ContactSection />
     </main>

@@ -1,67 +1,80 @@
+'use client'
+
 import { cn } from "@/lib/utils"
 import { SECTION_IDS } from "@/lib/constants";
 import { projectsHeading, projects, ProjectItem } from "@/lib/data/projects";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { ProjectCardImage } from "./ProjectCardImage";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { LinkSquare01Icon } from "@hugeicons/core-free-icons";
+import { useState } from "react";
 
 function ProjectCard({ project }: { project: ProjectItem }) {
     return (
-        <Card className={cn("hover:ring-2 hover:ring-primary hover:shadow-md hover:-translate-y-0.5 transition-all duration-200")}>
-            <ProjectCardImage src={project.imageSrc} alt={project.imageAlt} />
-            <CardHeader>
-                <h3 className={cn("text-xl font-semibold")}>{project.title}</h3>
-            </CardHeader>
-            <CardContent className={cn("flex flex-col gap-3")}>
-                <p className={cn("text-sm text-muted-foreground")}>{project.description}</p>
-                <ul className={cn("flex flex-wrap gap-2")}>
+        <div className={cn("flex flex-col md:flex-row bg-card text-card-foreground ring-1 ring-foreground/10 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5")}>
+            <div className={cn('flex-shring-0 md:w-2/5 md:self-stretch')}>
+                <ProjectCardImage src={project.imageSrc} alt={project.imageAlt} />
+            </div>
+            <div className={cn('flex flex-col flex-1 gap-3 p-4')}>
+                <h3 className={cn("text-base font-semibold")}>{project.title}</h3>
+                <p className={cn("text-sm text-muted-foreground flex-1")}>{project.description}</p>
+                <ul className={cn("flex flex-wrap gap-1.5")}>
                     {project.stack.map(tech => (
                         <li key={tech}>
                             <Badge variant="secondary">{tech}</Badge>
                         </li>
                     ))}
                 </ul>
-            </CardContent>
-            <CardFooter className={cn("flex gap-4")}>
-                {project.liveUrl && 
+                {project.liveUrl ? (
                     <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={cn("text-sm font-medium hover:text-primary")}
-                        aria-label={`Live demo of ${project.title}`}
+                        aria-label={`Visit ${project.title}`}
+                        className={cn("text-sm font-medium self-start inline-flex items-center gap-1.5 border border-border rounded-full px-3 py-1 hover:bg-muted transition-colors")}
                     >
-                        Live demo <span aria-hidden="true">↗</span>
+                        Visit site
+                        <HugeiconsIcon icon={LinkSquare01Icon} size={14} />
                     </a>
+                ) : (
+                    <span className={cn('text-xs text-muted-foreground italic')}>In development</span>
+                )
                 }
-                {project.repoUrl &&
-                    <a
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn("text-sm font-medium hover:text-primary")}
-                        aria-label={`GitHub repository for ${project.title}`}
-                    >
-                        GitHub <span aria-hidden="true">↗</span>
-                    </a>
-                }
-            </CardFooter>
-        </Card>
+            </div>
+        </div>
     )
 }
 
 export function ProjectsSection() {
+    const [showAll, setShowAll] = useState(false)
+    const visible = showAll ? projects : projects.slice(0, 3);
+
     return (
         <section id={SECTION_IDS.projects} className={cn("scroll-mt-nav py-12 md:py-20 px-6")}>
             <h2 className={cn("mb-6 text-3xl font-semibold")}>
                 {projectsHeading}
             </h2>
-            <div className={cn("grid md:grid-cols-2 gap-6")}>
-                {projects.length > 0
-                    ? projects.map(project => <ProjectCard key={project.id} project={project} />)
-                    : <p className={cn("text-sm text-muted-foreground")}>No project yet.</p>
-                }
-            </div>
+            {projects.length > 0 ? (
+                <>
+                    <div className={cn('flex flex-col gap-5')}>
+                        {visible.map(project => (
+                            <ProjectCard key={project.id} project={project} />
+                        ))}
+                    </div>
+                    {projects.length > 3 && (
+                        <div className={cn("flex justify-center mt-8")}>
+                            <button
+                                onClick={() => setShowAll(prev => !prev)}
+                                className={cn('text-sm font-medium border border-border rounded-lg px-6 py-2.5 hover:bg-muted transition-colors text-foreground')}
+                            >
+                                {showAll ? 'Show less' : `Show all projects (${projects.length})`}
+                            </button>
+                        </div>
+                    )}
+                </>
+            ) : (
+                <p className={cn('text-sm text-muted-foreground')}>No projects yet.</p>
+            )}
         </section>
     )
 }

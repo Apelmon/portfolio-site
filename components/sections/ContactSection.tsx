@@ -4,6 +4,8 @@ import { ContactForm } from "@/components/sections/ContactForm";
 import { CVDownload } from "@/components/sections/CVDownload";
 import { contactHeading, PRIVACY_NOTICE } from "@/lib/data/contact";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { LinkSquare01Icon } from "@hugeicons/core-free-icons";
 
 export function ContactSection() {
     return (
@@ -21,7 +23,7 @@ export function ContactSection() {
                     <a
                         href={`mailto:${EMAIL}`}
                         className={cn(buttonVariants({ variant: "ghost" }), "w-fit")}>
-                        Email me directly <span aria-hidden="true">↗</span>
+                        Email me directly <HugeiconsIcon icon={LinkSquare01Icon} size={14} />
                     </a>
                 </div>}
 

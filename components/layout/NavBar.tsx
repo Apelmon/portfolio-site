@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button-variants"
 import { useEffect, useState, useRef, useCallback } from "react"
 import { SECTION_IDS, NAV_LINKS, SOCIAL_LINKS, HEADER_TITLE } from "@/lib/constants"
+import { HugeiconsIcon } from "@hugeicons/react";
+import { LinkSquare01Icon } from "@hugeicons/core-free-icons";
 
 
 export function NavBar() {
@@ -285,7 +287,11 @@ export function NavBar() {
                 {/* Social links at the bottom */}
                 <div className={cn("mt-auto flex gap-4 text-sm text-muted-foreground")}>
                     {SOCIAL_LINKS.map(({ href, label }) => (
-                        <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={cn("min-h-11 flex items-center hover:text-accent transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent")}>{label} ↗</a>
+                        <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={cn("min-h-11 flex items-center hover:text-accent transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent")}
+                        >
+                            {label}
+                            <HugeiconsIcon icon={LinkSquare01Icon} size={14} />
+                        </a>
                     ))}
                 </div>
             </div>
