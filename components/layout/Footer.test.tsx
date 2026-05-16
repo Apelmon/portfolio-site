@@ -34,4 +34,9 @@ describe('Footer', () => {
       expect(link.textContent).toContain('↗')
     })
   })
+
+  it('renders a QR code button', () => {
+    render(<Footer />)
+    expect(screen.getByRole('button', { name: /show qr code/i })).toBeInTheDocument()
+  })
 })

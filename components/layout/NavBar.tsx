@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button-variants"
 import { useEffect, useState, useRef, useCallback } from "react"
 import { SECTION_IDS, NAV_LINKS, SOCIAL_LINKS, HEADER_TITLE } from "@/lib/constants"
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare01Icon } from "@hugeicons/core-free-icons";
+import { QRCodeButton } from "../ui/QRCodeButton";
 
 
 export function NavBar() {
@@ -157,9 +157,6 @@ export function NavBar() {
                     )}>
                         {HEADER_TITLE}
                     </Link>
-                    {/* <a href="/" className="text-sm font-semibold tracking-tight text-text-primary text-gray-500">
-                        Pavlo Khilmon<span className="text-accent">.</span>
-                    </a> */}
 
                     {/* Desktop links */}
                     {/* <ul className="hidden md:flex items-center gap-6 text-sm">
@@ -184,30 +181,24 @@ export function NavBar() {
                     </ul> */}
 
                     {/* Desktop CV download link */}
-                    <a
-                        href="/files/CV-Pavlo-Khilmon-en.pdf"
-                        download
-                        aria-label="Download CV (PDF)"
-                        className={cn(buttonVariants({ variant: "ghost", size: "sm" }),
-                            "hidden md:flex rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                        )}
-                    >
-                        CV
-                    </a>
+                    <QRCodeButton className={cn("hidden md:flex h-9 w-9")} />
 
                     {/* Hamburger mobile only */}
-                    <button
-                        ref={hamburgerRef}
-                        onClick={() => setDrawerOpen(true)}
-                        aria-label="open navigation menu"
-                        aria-expanded={drawerOpen}
-                        aria-controls="mobile-drawer"
-                        className={cn("md:hidden flex flex-col justify-center items-center gap-1.5 w-11 h-nav rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-gray-700")}
-                    >
-                        <span className={cn("block h-px w-5 bg-current transition-all duration-300", drawerOpen && "translate-y-2 rotate-45")} />
-                        <span className={cn("block h-px w-5 bg-current transition-all duration-300", drawerOpen && "opacity-0")} />
-                        <span className={cn("block h-px w-5 bg-current transition-all duration-300", drawerOpen && "-translate-y-2 rotate-45")} />
-                    </button>
+                    <div className={cn("md:hidden flex gap-0")}>
+                        <QRCodeButton className={cn("items-center justify-center h-nav w-11 text-muted-foreground")} />
+                        {/* <button
+                            ref={hamburgerRef}
+                            onClick={() => setDrawerOpen(true)}
+                            aria-label="open navigation menu"
+                            aria-expanded={drawerOpen}
+                            aria-controls="mobile-drawer"
+                            className={cn("flex flex-col justify-center items-center gap-1.5 w-11 h-nav rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-gray-700")}
+                        >
+                            <span className={cn("block h-px w-5 bg-current transition-all duration-300", drawerOpen && "translate-y-2 rotate-45")} />
+                            <span className={cn("block h-px w-5 bg-current transition-all duration-300", drawerOpen && "opacity-0")} />
+                            <span className={cn("block h-px w-5 bg-current transition-all duration-300", drawerOpen && "-translate-y-2 rotate-45")} />
+                        </button> */}
+                    </div>
                 </nav>
             </header>
 
@@ -269,20 +260,6 @@ export function NavBar() {
                         })}
                     </ul>
                 </nav> */}
-
-                {/* CV download link */}
-                <a
-                    href="/files/CV-Pavlo-Khilmon-en.pdf"
-                    download
-                    onClick={closeDrawer}
-                    className={cn(
-                        "flex items-center min-h-11 px-3 rounded text-sm text-muted-foreground",
-                        "hover:text-accent transition-colors",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                    )}
-                >
-                    Download CV
-                </a>
 
                 {/* Social links at the bottom */}
                 <div className={cn("mt-auto flex gap-4 text-sm text-muted-foreground")}>

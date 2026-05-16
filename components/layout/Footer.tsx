@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { SOCIAL_LINKS } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare01Icon } from "@hugeicons/core-free-icons";
+import { QRCodeButton } from "../ui/QRCodeButton";
 
 export function Footer() {
     return (
@@ -23,6 +24,10 @@ export function Footer() {
                             <HugeiconsIcon icon={LinkSquare01Icon} size={14} />
                         </a>
                     ))}
+                    <QRCodeButton className={cn("inline-flex items-center justify-center rounded-md h-6 px-2",
+                        "text-xs font-medium transition-all outline-none select-none hover:bg-accent/10",
+                        "hover:text-accent focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+                    )}/>
                 </div>
             </div>
         </footer>

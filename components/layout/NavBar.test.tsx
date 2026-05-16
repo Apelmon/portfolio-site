@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, act, within } from '@testing-library/react'
 import { NavBar } from './NavBar'
 import { NAV_LINKS, SECTION_IDS } from '@/lib/constants'
+import userEvent from '@testing-library/user-event'
 
 // Mock IntersectionObserver — not available in jsdom
 let observerCallback: IntersectionObserverCallback
@@ -55,17 +56,6 @@ describe('NavBar', () => {
     })
   })
 
-  it('renders CV download link with download attribute', () => {
-    render(<NavBar />)
-    // hidden: true to include the mobile drawer CV link (aria-hidden when closed)
-    const cvLinks = screen.getAllByRole('link', { name: /^cv$|download cv/i, hidden: true })
-    expect(cvLinks.length).toBe(2)
-    cvLinks.forEach((link) => {
-      expect(link).toHaveAttribute('download')
-      expect(link).toHaveAttribute('href', '/files/CV-Pavlo-Khilmon-en.pdf')
-    })
-  })
-
   it('hamburger button opens the mobile drawer', () => {
     render(<NavBar />)
     const hamburger = screen.getByRole('button', { name: /open navigation menu/i })
@@ -102,5 +92,18 @@ describe('NavBar', () => {
     fireEvent.click(firstLink)
     expect(screen.queryByRole('dialog', { name: /navigation menu/i })).not.toBeInTheDocument()
     expect(document.activeElement).toBe(hamburger)
+  })
+
+  it('renders a QR code button in the desktop nav', () => {
+    render(<NavBar />)
+    const qrButtons = screen.getAllByRole('button', { name: /show qr code/i })
+    expect(qrButtons.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('clicking QR button opens the QR modal', async () => {
+    render(<NavBar />)
+    const qrButton = screen.getAllByRole('button', { name: /show qr code/i })[0]
+    await userEvent.click(qrButton)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 })
