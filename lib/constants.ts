@@ -13,6 +13,7 @@ export const HEADER_TITLE = "Pavlo Khilmon" as const;
 // "teal" uses :root defaults; "indigo" applies [data-theme="indigo"] overrides
 export const ACTIVE_THEME = "indigo" as const satisfies "teal" | "indigo";
 export const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "";
+export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? "";
 export const LANDING_PAGE_REPO = 'https://github.com/pkhilmon/portfolio-site' as const;
 
 type SocialLink = {

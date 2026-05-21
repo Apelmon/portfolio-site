@@ -4,6 +4,7 @@ export interface HeroContent {
     tagline: string;
     primaryCtaLabel: string;
     secondaryCtaLabel: string;
+    bookACallLabel: string;
 }
 
 export const heroContent: HeroContent = {
@@ -12,4 +13,5 @@ export const heroContent: HeroContent = {
     tagline: "Fast, high-quality web interfaces — from landing pages to full-stack products.",
     primaryCtaLabel: "Get in touch",
     secondaryCtaLabel: "View my work",
+    bookACallLabel: "Book a Call",
 };

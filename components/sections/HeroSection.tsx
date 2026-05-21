@@ -1,7 +1,10 @@
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button-variants";
-import { SECTION_IDS } from "@/lib/constants";
+import { SECTION_IDS, CALENDLY_URL } from "@/lib/constants";
 import { heroContent } from "@/lib/data/hero";
+
+// xl on mobile (<640px), 2xl on sm+ — matches 2xl size definition
+const heroButtonSm = "sm:h-12 sm:gap-2 sm:px-7 sm:text-base";
 
 export function HeroSection() {
     return (
@@ -17,13 +20,21 @@ export function HeroSection() {
             <p className={cn("mb-10 max-w-xl mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed")}>
                 {heroContent.tagline}
             </p>
-            <div className={cn("flex flex-col sm:flex-row justify-center gap-3")}>
-                <a href={`#${SECTION_IDS.contact}`} className={cn(buttonVariants({ variant: "default" }))}>
+            <div className={cn("flex flex-row justify-center gap-3")}>
+                <a
+                    href={CALENDLY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(buttonVariants({ variant: "default", size: "xl" }), heroButtonSm)}
+                >
+                    {heroContent.bookACallLabel}
+                </a>
+                <a
+                    href={`#${SECTION_IDS.contact}`}
+                    className={cn(buttonVariants({ variant: "outline", size: "xl" }), heroButtonSm)}
+                >
                     {heroContent.primaryCtaLabel}
                 </a>
-                {/* <a href={`#${SECTION_IDS.projects}`} className={cn(buttonVariants({ variant: "outline" }))}>
-                    {heroContent.secondaryCtaLabel}
-                </a> */}
             </div>
         </section>
     )
